@@ -21,6 +21,8 @@ class Solution {
   public:
     // Function to sort the array using bubble sort algorithm.
     void bubbleSort(int arr[], int n) {
+        int didSwap=0;
+        
         for(int i=n-1;i>=1;i--){
             
             for(int j=0;j<=i-1;j++){
@@ -28,12 +30,18 @@ class Solution {
                 if(arr[j]>arr[j+1]){
                     
                     swap(arr[j],arr[j+1]);
+                    didSwap=1;
                 //     int temp = arr[j];
                 //     arr[j] = arr[j+1];
                 //     arr[j+1]= temp;
                 // }
             }
         }
+        // if array is already sort then no need to run for n-1(second loop)
+        if(didSwap ==0){
+            break;
+        }
+        
         };
     }
 };
