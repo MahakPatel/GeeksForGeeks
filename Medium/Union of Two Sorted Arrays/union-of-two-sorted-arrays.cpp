@@ -12,61 +12,67 @@ class Solution{
     vector<int> findUnion(int arr1[], int arr2[], int n, int m)
     {
         
-    //     int i=0,j=0;
-    //     vector<int> unionArr;
+        // optimal solution
         
-    //     while(i<n && j<m){
-    //         if(arr1[i]<= arr2[j]){
-    //             if(unionArr.back()!=arr1[i] || unionArr.size() == 0){
-    //                 unionArr.push_back(arr1[i]);
-    //             }
-    //             i++;
-    //         }else{
-    //             if(unionArr.back()!=arr2[j] || unionArr.size() == 0){
-    //                 unionArr.push_back(arr2[j]);
-    //             }
-    //             j++;
-    //         }
-            
-    //     }
-    //         while(i<n){
-    //              if(unionArr.back()!=arr1[i] || unionArr.size() == 0){
-    //                 unionArr.push_back(arr1[i]);
-    //             }
-    //             i++;
-    //         }
-            
-    //         while(j<m){
-    //              if(unionArr.back()!=arr2[j] || unionArr.size() == 0){
-    //                 unionArr.push_back(arr2[j]);
-    //             }
-    //             j++;
-    //         }
+        int i=0,j=0;
+        vector<int> unionArr;
         
-    //           return unionArr;         
+        while(i<n && j<m){ 
+            if(arr1[i]<= arr2[j]){ // check for smaller elment
+            
+                // For arr1 : if unionArr is empty or previous element is not the same of current element then push the element in the unionArray
+                if(unionArr.size() == 0 || unionArr.back()!=arr1[i] ){ 
+                    unionArr.push_back(arr1[i]);
+                }
+                i++;
+                // For arr2 : if unionArr is empty or previous element is not the same of current element then push the element in the unionArray
+            }else{
+                if(unionArr.size() == 0 || unionArr.back()!=arr2[j]){
+                    unionArr.push_back(arr2[j]);
+                }
+                j++;
+            }
+            
+        }
+        // if the first array is still not empty then  then do the same
+            while(i<n){
+                 if(unionArr.size() == 0 || unionArr.back()!=arr1[i] ){
+                    unionArr.push_back(arr1[i]);
+                }
+                i++;
+            }
+        // if the seciond array is still not empty then  then do the same
+            while(j<m){
+                 if(unionArr.size() == 0 || unionArr.back()!=arr2[j]){
+                    unionArr.push_back(arr2[j]);
+                }
+                j++;
+            }
+        
+              return unionArr;         
 
-    // }
+    
       
 
 
         
       //  Brute - Force Approch
-        set<int> st;
-        vector<int> unionArr;
+        // set<int> st;
+        // vector<int> unionArr;
         
-        for(int i=0;i<n;i++){
-            st.insert(arr1[i]);
-        }
+        // for(int i=0;i<n;i++){
+        //     st.insert(arr1[i]);
+        // }
         
-        for(int i=0;i<m;i++){
-            st.insert(arr2[i]);
-        }
+        // for(int i=0;i<m;i++){
+        //     st.insert(arr2[i]);
+        // }
         
-        for(auto it:st){
-            unionArr.push_back(it);
-        }
+        // for(auto it:st){
+        //     unionArr.push_back(it);
+        // }
         
-        return unionArr;
+        // return unionArr;
     }
     
         
