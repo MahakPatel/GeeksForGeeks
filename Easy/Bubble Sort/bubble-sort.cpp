@@ -21,29 +21,44 @@ class Solution {
   public:
     // Function to sort the array using bubble sort algorithm.
     void bubbleSort(int arr[], int n) {
-        int didSwap=0;
         
-        for(int i=n-1;i>=1;i--){
-            
-            for(int j=0;j<=i-1;j++){
-                
-                if(arr[j]>arr[j+1]){
-                    
-                    swap(arr[j],arr[j+1]);
-                    didSwap=1;
-                //     int temp = arr[j];
-                //     arr[j] = arr[j+1];
-                //     arr[j+1]= temp;
-                // }
+         if (n == 1) return; // base condition
+        // compare and move biggest element at the end of the array
+        for(int i=0;i<n-1;i++){
+            if(arr[i]>= arr[i+1]){ // compare element with next element
+                 int temp = arr[i]; // swap
+                    arr[i] = arr[i+1];
+                    arr[i+1]= temp;
+                } 
             }
-        }
-        // if array is already sort then no need to run for n-1(second loop)
-        if(didSwap ==0){
-            break;
+            
+            bubbleSort(arr,n-1); // for second intertion apply recursion
         }
         
-        };
-    }
+        //++++++++++++++++++ Brute force approch)+++++++++++++
+        // int didSwap=0;
+        
+        // for(int i=n-1;i>=1;i--){
+            
+        //     for(int j=0;j<=i-1;j++){
+                
+        //         if(arr[j]>arr[j+1]){
+                    
+        //             swap(arr[j],arr[j+1]);
+        //             didSwap=1;
+        //         //     int temp = arr[j];
+        //         //     arr[j] = arr[j+1];
+        //         //     arr[j+1]= temp;
+        //         // }
+        //     }
+        // }
+        // // if array is already sort then no need to run for n-1(second loop)
+        // if(didSwap ==0){
+        //     break;
+        // }
+        
+    
+    
 };
 
 
