@@ -31,11 +31,11 @@ pair<int, int> getFloorAndCeil(int arr[], int n, int x) {
 
     for (int i = 0; i < n; i++) {
         if (arr[i] <= x) {
-            fl = max(arr[i], fl);
+            fl = max(arr[i], fl); // to find the floor
         }
 
         if (arr[i] >= x) {
-            cl = min(arr[i], cl);
+            cl = min(arr[i], cl);  // to find the ceil
         }
     }
     if (cl == INT_MAX) {
