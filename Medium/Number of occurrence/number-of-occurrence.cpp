@@ -11,14 +11,13 @@ public:
 	/* if x is present in arr[] then returns the count
 		of occurrences of x, otherwise returns 0. */
 	int count(int arr[], int n, int x) {
-int first = firstOccurance(arr,n,x); // will get index of first accurance
+        int first = firstOccurance(arr,n,x); // will get index of first accurance
+        if(first == -1) return 0;
+        
+        int last =lastOccurance(arr,n,x); // will get index of last occurance
 
-if(first == -1) return 0;
 
-int last =lastOccurance(arr,n,x); // will get index of last occurance
-
-
-return last-first+1;  // +1 because index start with 0 
+        return last-first+1;  // +1 because index start with 0 
 	}
 	
 
