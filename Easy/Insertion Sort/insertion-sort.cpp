@@ -20,35 +20,34 @@ class Solution
     //Function to sort the array using insertion sort algorithm.
     void insertionSort(int arr[], int n)
     {
-    //     if (n<=1){
-    //         return;
-    //     }
         
-    //     int i=0;
-    //     i++;
+        find(arr,0,n);
+   
+    }
+    
+    void find(int arr[],int i, int n){
+        if (i==n){ // base condition
+            return;
+        }
+    
         
-    //     int j = i;
+        int j = i;
   
-    //   while( j>0 && arr[j-1] >arr[j]){
-    //           int temp = arr[j-1];
-    //           arr[j-1] = arr[j];
-    //           arr[j] = temp;
-    //           j--;
-    //         }
-            
-
-    //      insertionSort(arr,n);
-        for(int i=0;i<=n-1;i++){
-            int j=i;
-            while(j>0 && arr[j-1] >arr[j]){
+      while( j>0 && arr[j-1] > arr[j]){ // compare and if the previous element is bigger then the current one then swap
               int temp = arr[j-1];
               arr[j-1] = arr[j];
               arr[j] = temp;
               j--;
             }
-        }
+            
+            find(arr,i+1,n); // recursion
+            
+
     }
 };
+
+
+
 
 //{ Driver Code Starts.
 int main()
