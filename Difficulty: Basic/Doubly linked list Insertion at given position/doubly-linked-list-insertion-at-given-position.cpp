@@ -109,7 +109,7 @@ void addNode(Node *head, int pos, int data)
     newNode -> prev = temp;
     
     if(temp -> next){
-    front -> prev = newNode;
+    front -> prev = newNode; // this condition is if node is in between beacause if node is last then frnt will be NULL
     }
     temp -> next  = newNode;
     
