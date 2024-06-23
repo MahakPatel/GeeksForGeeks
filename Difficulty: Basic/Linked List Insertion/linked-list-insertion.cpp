@@ -48,7 +48,7 @@ class Solution{
     Node *insertAtEnd(Node *head, int x)  {
         Node* lastNode;
         
-        if(head == NULL){
+        if(head == NULL){ // if LL is empty
           return lastNode = new Node(x);
         }
         
