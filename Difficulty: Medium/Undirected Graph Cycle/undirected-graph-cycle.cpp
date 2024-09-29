@@ -4,45 +4,79 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
-     // Helper function to detect cycles using BFS
-    bool detectCycle(int src, vector<int> adj[], int vis[]) {
-        vis[src] = 1; // Mark the source node as visited
-        queue<pair<int, int>> q; // Queue to hold nodes and their parents
-        q.push({src, -1}); // Push the source node with parent as -1
+private:
+    // DFS function to detect cycles in an undirected graph
+    bool dfs(int node, int parent, vector<int> vis, vector<int> adj[]) {
+        vis[node] = 1; // Mark the current node as visited
 
-        // BFS traversal
-        while (!q.empty()) {
-            int node = q.front().first; // Current node
-            int parent = q.front().second; // Parent of the current node
-            q.pop(); // Remove the current node from the queue
-
-            // Explore all adjacent nodes
-            for (auto adjNode : adj[node]) {
-                // If the adjacent node hasn't been visited
-                if (!vis[adjNode]) {
-                    vis[adjNode] = 1; // Mark as visited
-                    q.push({adjNode, node}); // Push the adjacent node with current node as parent
-                } else if (parent != adjNode) {
-                    // If the adjacent node is visited and is not the parent of the current node
-                    return true; // A cycle is detected
-                }
+        // Explore all adjacent nodes
+        for (auto adjNode : adj[node]) {
+            if (!vis[adjNode]) { // If the adjacent node is not visited
+                if (dfs(adjNode, node, vis, adj)) return true; // Recur for the adjacent node
+            } else if (adjNode != parent) { // If the adjacent node is visited and not the parent
+                return true; // A cycle is detected
             }
         }
-
-        return false; // No cycle found from the current source node
+        
+        return false; // No cycle found from the current node
     }
+    //  // Helper function to detect cycles using BFS
+    // bool detectCycle(int src, vector<int> adj[], int vis[]) {
+    //     vis[src] = 1; // Mark the source node as visited
+    //     queue<pair<int, int>> q; // Queue to hold nodes and their parents
+    //     q.push({src, -1}); // Push the source node with parent as -1
+
+    //     // BFS traversal
+    //     while (!q.empty()) {
+    //         int node = q.front().first; // Current node
+    //         int parent = q.front().second; // Parent of the current node
+    //         q.pop(); // Remove the current node from the queue
+
+    //         // Explore all adjacent nodes
+    //         for (auto adjNode : adj[node]) {
+    //             // If the adjacent node hasn't been visited
+    //             if (!vis[adjNode]) {
+    //                 vis[adjNode] = 1; // Mark as visited
+    //                 q.push({adjNode, node}); // Push the adjacent node with current node as parent
+    //             } else if (parent != adjNode) {
+    //                 // If the adjacent node is visited and is not the parent of the current node
+    //                 return true; // A cycle is detected
+    //             }
+    //         }
+    //     }
+
+    //     return false; // No cycle found from the current source node
+    // }
 
 public:
     // ++++++++++++ TC O(n + 2E)   SC O(n) ++++++++++++
+    // +++++++++++++++ Using BFS +++++++++++++++++++++
     // Function to detect cycle in an undirected graph
+    // bool isCycle(int V, vector<int> adj[]) {
+    //     int vis[V] = {0}; // Initialize visited array to track visited nodes
+
+    //     // Check for cycles in each component of the graph
+    //     for (int i = 0; i < V; i++) {
+    //         if (!vis[i]) { // If the node is not visited
+    //             // If a cycle is detected, return true
+    //             if (detectCycle(i, adj, vis)) return true;
+    //         }
+    //     }
+
+    //     return false; // No cycle found in the graph
+    // }
+    
+    // ++++++++++++ TC O(n + 2E)   SC O(n) ++++++++++++
+    // +++++++++++++++ Using DFS +++++++++++++++++++++
+ // Function to detect cycle in an undirected graph
     bool isCycle(int V, vector<int> adj[]) {
-        int vis[V] = {0}; // Initialize visited array to track visited nodes
+        vector<int> vis(V, 0); // Initialize visited array for V vertices
 
         // Check for cycles in each component of the graph
         for (int i = 0; i < V; i++) {
             if (!vis[i]) { // If the node is not visited
                 // If a cycle is detected, return true
-                if (detectCycle(i, adj, vis)) return true;
+                if (dfs(i, -1, vis, adj)) return true; // -1 as the parent for the starting node
             }
         }
 
