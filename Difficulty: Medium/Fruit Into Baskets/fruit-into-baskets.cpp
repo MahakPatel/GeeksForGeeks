@@ -6,8 +6,7 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-  
-  // ++++++++++++++ Brute Force ++++++ TC O(N^2).  SC O(1)
+        // ++++++++++++++ Brute Force ++++++ TC O(N^2).  SC O(1)
    // Function to calculate the maximum number of fruits that can be collected
     // int totalFruits(vector<int> &arr) {
     //     int maxLen = 0; // Variable to store the maximum length of fruits collected
@@ -124,6 +123,7 @@ int main() {
         int ans = ob.totalFruits(arr);
 
         cout << ans << endl;
+        cout << "~" << endl;
     }
     return 0;
 }
