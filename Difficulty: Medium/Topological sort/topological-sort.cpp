@@ -5,45 +5,90 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
- private:
-    //++++++++++++++++++++++++++++++ TC O(V  + E).   SC O(V +V)
-    // DFS function to visit nodes and push them onto the stack
-    void dfs(int node, int vis[], stack<int> &st, vector<vector<int>> &adj) {
-        vis[node] = 1; // Mark the current node as visited
+//  private:
+//     // ++++++++++++++++++++++++ USING DFS ++++++++++++++++++++
+//     //++++++++++++++++++++++++++++++ TC O(V  + E).   SC O(V +V)
+//     // DFS function to visit nodes and push them onto the stack
+//     void dfs(int node, int vis[], stack<int> &st, vector<vector<int>> &adj) {
+//         vis[node] = 1; // Mark the current node as visited
         
-        // Visit all the adjacent nodes
-        for (auto it : adj[node]) {
-            if (!vis[it]) { // If the adjacent node has not been visited
-                dfs(it, vis, st, adj); // Recursively visit the adjacent node
-            }
-        }
+//         // Visit all the adjacent nodes
+//         for (auto it : adj[node]) {
+//             if (!vis[it]) { // If the adjacent node has not been visited
+//                 dfs(it, vis, st, adj); // Recursively visit the adjacent node
+//             }
+//         }
         
-        st.push(node); // Push the current node to the stack after all its adjacent nodes are processed
-    }
+//         st.push(node); // Push the current node to the stack after all its adjacent nodes are processed
+//     }
     
-public:
-    // Function to return a list containing vertices in topological order
-    vector<int> topologicalSort(vector<vector<int>>& adj) {
-        int v = adj.size(); // Get the number of vertices in the graph
-        int vis[v] = {0}; // Create a visited array initialized to 0 (unvisited)
-        stack<int> st; // Stack to store the topological order
+// public:
+//     // Function to return a list containing vertices in topological order
+//     vector<int> topologicalSort(vector<vector<int>>& adj) {
+//         int v = adj.size(); // Get the number of vertices in the graph
+//         int vis[v] = {0}; // Create a visited array initialized to 0 (unvisited)
+//         stack<int> st; // Stack to store the topological order
         
-        // Iterate through all vertices
-        for (int i = 0; i < v; i++) {
-            if (!vis[i]) { // If the vertex has not been visited
-                dfs(i, vis, st, adj); // Call DFS for the vertex
+//         // Iterate through all vertices
+//         for (int i = 0; i < v; i++) {
+//             if (!vis[i]) { // If the vertex has not been visited
+//                 dfs(i, vis, st, adj); // Call DFS for the vertex
+//             }
+//         }
+        
+//         vector<int> ans; // Vector to store the topological order
+        
+//         // Pop all elements from the stack to get the topological order
+//         while (!st.empty()) {
+//             ans.push_back(st.top()); // Get the top element
+//             st.pop(); // Remove the top element from the stack
+//         }
+        
+//         return ans; // Return the topological order
+//     }
+    public:
+    //+++++++++++++++++ Using BFS(Kahn's Algoritham) +++++++++++++++++
+      //++++++++++++++++++++++++++++++ TC O(V  + E).   SC O(V +V)
+        // Function to return a list containing vertices in topological order
+    vector<int> topologicalSort(vector<vector<int>>& adj) {
+        int v = adj.size(); // Get the number of vertices
+        vector<int> indegree(v, 0); // Initialize indegree array to 0 for all vertices
+        
+        // Calculate indegrees of all vertices
+        for(int i = 0; i < v; i++) {
+            for(auto it : adj[i]) {
+                indegree[it]++; // Increment the indegree of adjacent nodes
             }
         }
         
-        vector<int> ans; // Vector to store the topological order
-        
-        // Pop all elements from the stack to get the topological order
-        while (!st.empty()) {
-            ans.push_back(st.top()); // Get the top element
-            st.pop(); // Remove the top element from the stack
+        queue<int> q; // Create a queue to store all vertices with indegree 0
+        // Push all vertices with indegree 0 into the queue
+        for(int i = 0; i < v; i++) {
+            if(indegree[i] == 0) {
+                q.push(i);
+            }
         }
         
-        return ans; // Return the topological order
+        vector<int> topo; // Vector to store the topological order
+        
+        // Process the nodes in the queue
+        while(!q.empty()) {
+            int node = q.front(); // Get the front node
+            q.pop(); // Remove the front node
+            
+            topo.push_back(node); // Add the node to the topological order
+            
+            // Decrease the indegree of adjacent nodes
+            for(auto it : adj[node]) {
+                indegree[it]--; // Decrease the indegree by 1
+                // If indegree becomes 0, push it into the queue
+                if(indegree[it] == 0) {
+                    q.push(it);
+                }
+            }
+        }
+        
+        return topo; // Return the topological order
     }
 };
 
